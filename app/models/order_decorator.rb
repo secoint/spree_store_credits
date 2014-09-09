@@ -60,7 +60,7 @@ Order.class_eval do
 
   # consume users store credit once the order has completed.
   fsm = self.state_machines[:state]
-  fsm.after_transition :to => 'complete', :do => :consume_users_credit
+  fsm.after_transition :to => 'complete', :do => :consume_users_credit, :if => "self.user.present?"
 
   def consume_users_credit
     return unless completed?
